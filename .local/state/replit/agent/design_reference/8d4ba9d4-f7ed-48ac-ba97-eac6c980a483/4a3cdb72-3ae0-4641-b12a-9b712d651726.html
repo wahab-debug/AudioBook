@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AudioBookment - Audiobook Calculators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: '#2563eb',
+                    secondary: '#1e40af',
+                    accent: '#3b82f6'
+                },
+                fontFamily: {
+                    'inter': ['Inter', 'sans-serif']
+                }
+            }
+        }
+    };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="font-inter bg-slate-50">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-primary">AudioBookment</h1>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" onclick="showPage('home')" class="nav-link text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors">
+                            Calculators <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="py-2 grid grid-cols-1 gap-1">
+                                <a href="#finished-hour" onclick="showPage('finished-hour')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-50 hover:text-primary">Finished Hour Calculator</a>
+                                <a href="#time-left" onclick="showPage('time-left')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-50 hover:text-primary">Time Left Calculator</a>
+                                <a href="#price" onclick="showPage('price')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-50 hover:text-primary">Price Calculator</a>
+                                <a href="#time-per-day" onclick="showPage('time-per-day')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-50 hover:text-primary">Time Per Day Calculator</a>
+                                <a href="#time-to-page" onclick="showPage('time-to-page')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-50 hover:text-primary">Time To Page Calculator</a>
+                                <a href="#percentage" onclick="showPage('percentage')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-50 hover:text-primary">Percentage Calculator</a>
+                                <a href="#length" onclick="showPage('length')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-50 hover:text-primary">Length Calculator</a>
+                                <a href="#speed" onclick="showPage('speed')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-50 hover:text-primary">Speed Calculator</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" onclick="showPage('contact')" class="nav-link text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden bg-white border-t hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" onclick="showPage('home')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Home</a>
+                <a href="#finished-hour" onclick="showPage('finished-hour')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Finished Hour Calculator</a>
+                <a href="#time-left" onclick="showPage('time-left')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Time Left Calculator</a>
+                <a href="#price" onclick="showPage('price')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Price Calculator</a>
+                <a href="#time-per-day" onclick="showPage('time-per-day')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Time Per Day Calculator</a>
+                <a href="#time-to-page" onclick="showPage('time-to-page')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Time To Page Calculator</a>
+                <a href="#percentage" onclick="showPage('percentage')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Percentage Calculator</a>
+                <a href="#length" onclick="showPage('length')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Length Calculator</a>
+                <a href="#speed" onclick="showPage('speed')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Speed Calculator</a>
+                <a href="#contact" onclick="showPage('contact')" class="block px-3 py-2 text-gray-700 hover:text-primary rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <div id="home-page" class="page-content">
+            <!-- Hero Section -->
+            <section class="bg-gradient-to-br from-primary to-secondary text-white py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Audiobook Calculators</h1>
+                    <p class="text-xl md:text-2xl mb-8 text-blue-100">Optimize your audiobook listening experience with precision</p>
+                </div>
+            </section>
+
+            <!-- Main Calculator -->
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Try the Most Popular Audiobook Calculator</h2>
+                        <p class="text-lg text-gray-600">Calculate your listening time and time saved with different playback speeds</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <form id="main-calculator-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Audiobook Length</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <input type="number" id="hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                    <div>
+                                        <input type="number" id="minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Playback Speed</label>
+                                <div class="flex items-center space-x-4">
+                                    <button type="button" id="speed-minus" class="w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full flex items-center justify-center transition-colors">
+                                        <i class="fas fa-minus text-sm"></i>
+                                    </button>
+                                    <div class="flex-1">
+                                        <input type="range" id="speed-range" min="0.5" max="2.0" step="0.1" value="1.0" class="w-full">
+                                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>0.5x</span>
+                                            <span>1.0x</span>
+                                            <span>1.5x</span>
+                                            <span>2.0x</span>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="speed-plus" class="w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full flex items-center justify-center transition-colors">
+                                        <i class="fas fa-plus text-sm"></i>
+                                    </button>
+                                </div>
+                                <div class="text-center mt-2">
+                                    <span id="speed-display" class="text-lg font-semibold text-primary">1.0x</span>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="button" id="calculate-main" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-2"></i>Calculate
+                                </button>
+                                <button type="button" id="reset-main" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Results -->
+                        <div id="main-results" class="mt-8 p-6 bg-slate-50 rounded-lg hidden">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Results</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-primary" id="listening-time">--</div>
+                                    <div class="text-sm text-gray-600">Total Listening Time</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600" id="time-saved">--</div>
+                                    <div class="text-sm text-gray-600">Time Saved</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- All Calculators Grid -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Discover All Audiobook Calculators We Offer</h2>
+                        <p class="text-lg text-gray-600">Comprehensive tools for every aspect of your audiobook experience</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('finished-hour')">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-clock text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Finished Hour Calculator</h3>
+                            <p class="text-gray-600 text-sm">Find out exactly when you'll finish your audiobook</p>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('time-left')">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-hourglass-half text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Time Left Calculator</h3>
+                            <p class="text-gray-600 text-sm">Know exactly how much listening time remains</p>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('price')">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-dollar-sign text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Price Calculator</h3>
+                            <p class="text-gray-600 text-sm">Find the perfect price for your audiobook</p>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('time-per-day')">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-calendar-day text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Time Per Day Calculator</h3>
+                            <p class="text-gray-600 text-sm">Plan your listening for perfect timing</p>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('time-to-page')">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-file-alt text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Time to Page Calculator</h3>
+                            <p class="text-gray-600 text-sm">Convert audiobook time to page numbers</p>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('percentage')">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-percentage text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Percentage Calculator</h3>
+                            <p class="text-gray-600 text-sm">Track your progress with ease</p>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('length')">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-ruler text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Length Calculator</h3>
+                            <p class="text-gray-600 text-sm">Estimate your listening time accurately</p>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('speed')">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-tachometer-alt text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Speed Calculator</h3>
+                            <p class="text-gray-600 text-sm">Optimize your playback speed and save time</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonial/Description Section -->
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Maximize Your Audiobook Experience</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Whether you're a casual listener or an audiobook enthusiast, understanding how to manage your listening time 
+                        can take your audiobook experience to the next level. That's where our suite of audiobook calculators comes in. 
+                        Each calculator is designed to help you plan, track, and optimize your audiobook sessions with ease.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Finished Hour Calculator Page -->
+        <div id="finished-hour-page" class="page-content hidden">
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Audiobook Finished Hour Calculator</h1>
+                        <p class="text-lg text-gray-600">Find out exactly when you'll finish your audiobook</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <form id="finished-hour-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Total Audiobook Time</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="fh-hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="fh-minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Starting Time (24-hour format)</label>
+                                <input type="time" id="start-time" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Playback Speed</label>
+                                <select id="fh-speed" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="0.75">0.75x</option>
+                                    <option value="1.0" selected>1.0x</option>
+                                    <option value="1.25">1.25x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="1.75">1.75x</option>
+                                    <option value="2.0">2.0x</option>
+                                </select>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="button" id="calculate-fh" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-2"></i>Calculate
+                                </button>
+                                <button type="button" id="reset-fh" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="fh-results" class="mt-8 p-6 bg-slate-50 rounded-lg hidden">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Estimated Finished Time</h3>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-primary" id="finished-time">--</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Table -->
+                    <div class="mt-12 bg-white rounded-xl shadow-lg p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Sample Finish Times with Different Playback Speeds</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse">
+                                <thead>
+                                    <tr class="border-b">
+                                        <th class="text-left py-3 px-4 font-medium text-gray-700">Start Time</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-700">Audiobook Length</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-700">Playback Speed</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-700">Estimated Finish Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4">9:00 AM</td>
+                                        <td class="py-3 px-4">8 hours</td>
+                                        <td class="py-3 px-4">1.0x</td>
+                                        <td class="py-3 px-4 font-semibold text-primary">5:00 PM</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4">9:00 AM</td>
+                                        <td class="py-3 px-4">8 hours</td>
+                                        <td class="py-3 px-4">1.5x</td>
+                                        <td class="py-3 px-4 font-semibold text-primary">2:20 PM</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4">9:00 AM</td>
+                                        <td class="py-3 px-4">8 hours</td>
+                                        <td class="py-3 px-4">2.0x</td>
+                                        <td class="py-3 px-4 font-semibold text-primary">1:00 PM</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4">12:00 PM</td>
+                                        <td class="py-3 px-4">10 hours</td>
+                                        <td class="py-3 px-4">1.0x</td>
+                                        <td class="py-3 px-4 font-semibold text-primary">10:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4">12:00 PM</td>
+                                        <td class="py-3 px-4">10 hours</td>
+                                        <td class="py-3 px-4">1.25x</td>
+                                        <td class="py-3 px-4 font-semibold text-primary">7:48 PM</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Related Calculators -->
+                    <div class="mt-12">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Like This Calculator? Explore The Rest Now!</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <a href="#time-left" onclick="showPage('time-left')" class="block bg-slate-50 hover:bg-slate-100 rounded-lg p-4 transition-colors">
+                                <h4 class="font-medium text-primary">Time Left Calculator</h4>
+                                <p class="text-sm text-gray-600">Know exactly how much listening time remains</p>
+                            </a>
+                            <a href="#price" onclick="showPage('price')" class="block bg-slate-50 hover:bg-slate-100 rounded-lg p-4 transition-colors">
+                                <h4 class="font-medium text-primary">Price Calculator</h4>
+                                <p class="text-sm text-gray-600">Find the perfect price for your audiobook</p>
+                            </a>
+                            <a href="#time-per-day" onclick="showPage('time-per-day')" class="block bg-slate-50 hover:bg-slate-100 rounded-lg p-4 transition-colors">
+                                <h4 class="font-medium text-primary">Time Per Day Calculator</h4>
+                                <p class="text-sm text-gray-600">Plan your listening for perfect timing</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Time Left Calculator Page -->
+        <div id="time-left-page" class="page-content hidden">
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Audiobook Time Left Calculator</h1>
+                        <p class="text-lg text-gray-600">Know exactly how much listening time remains</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <form id="time-left-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Total Audiobook Time</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="tl-total-hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="tl-total-minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Time Listened</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="tl-listened-hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="tl-listened-minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Playback Speed</label>
+                                <select id="tl-speed" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="0.75">0.75x</option>
+                                    <option value="1.0" selected>1.0x (Normal)</option>
+                                    <option value="1.25">1.25x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="1.75">1.75x</option>
+                                    <option value="2.0">2.0x</option>
+                                </select>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="button" id="calculate-tl" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-2"></i>Calculate
+                                </button>
+                                <button type="button" id="reset-tl" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="tl-results" class="mt-8 p-6 bg-slate-50 rounded-lg hidden">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Results</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-primary" id="time-left-result">--</div>
+                                    <div class="text-sm text-gray-600">Time Left</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600" id="percentage-completed">--</div>
+                                    <div class="text-sm text-gray-600">Percentage Completed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Instructions -->
+                    <div class="mt-12 bg-white rounded-xl shadow-lg p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">How to Check Time Listened and Total Time</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-medium mr-3">1</div>
+                                <p class="text-gray-700">Tap on the <strong>3 Dot (Menu) > Player Settings</strong></p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-medium mr-3">2</div>
+                                <p class="text-gray-700">Select <strong>Time Listened/ Total Time</strong> option in the <strong>Player Settings</strong> section</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-medium mr-3">3</div>
+                                <p class="text-gray-700">The audiobook player progress bar will now show both times.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <h4 class="font-semibold text-gray-900 mb-4">Example Calculations for Time Left</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-collapse">
+                                    <thead>
+                                        <tr class="border-b">
+                                            <th class="text-left py-3 px-4 font-medium text-gray-700">Total Length</th>
+                                            <th class="text-left py-3 px-4 font-medium text-gray-700">Time Listened</th>
+                                            <th class="text-left py-3 px-4 font-medium text-gray-700">Playback Speed</th>
+                                            <th class="text-left py-3 px-4 font-medium text-gray-700">Time Left</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4">10 hours</td>
+                                            <td class="py-3 px-4">3 hours</td>
+                                            <td class="py-3 px-4">1.0x</td>
+                                            <td class="py-3 px-4 font-semibold text-primary">7 hours</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4">10 hours</td>
+                                            <td class="py-3 px-4">3 hours</td>
+                                            <td class="py-3 px-4">1.5x</td>
+                                            <td class="py-3 px-4 font-semibold text-primary">4 hours, 40 mins</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4">8 hours</td>
+                                            <td class="py-3 px-4">5 hours</td>
+                                            <td class="py-3 px-4">1.25x</td>
+                                            <td class="py-3 px-4 font-semibold text-primary">2 hours, 24 mins</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-4">12 hours</td>
+                                            <td class="py-3 px-4">6 hours</td>
+                                            <td class="py-3 px-4">2.0x</td>
+                                            <td class="py-3 px-4 font-semibold text-primary">3 hours</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Price Calculator Page -->
+        <div id="price-page" class="page-content hidden">
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Audiobook Price Calculator</h1>
+                        <p class="text-lg text-gray-600">Find the perfect price for your audiobook</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <form id="price-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Audiobook Length (hours)</label>
+                                <input type="number" id="p-length" placeholder="Enter length in hours" min="0" step="0.5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Production Quality</label>
+                                <select id="p-quality" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="basic">Basic (Home Recording)</option>
+                                    <option value="standard" selected>Standard (Professional Recording)</option>
+                                    <option value="premium">Premium (Studio Quality)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Narrator Experience</label>
+                                <select id="p-narrator" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="new">New Narrator</option>
+                                    <option value="experienced" selected>Experienced Narrator</option>
+                                    <option value="celebrity">Celebrity/Famous Narrator</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Market Position</label>
+                                <select id="p-market" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="budget">Budget-Friendly</option>
+                                    <option value="mid" selected>Mid-Market</option>
+                                    <option value="premium">Premium Pricing</option>
+                                </select>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="button" id="calculate-price" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-2"></i>Calculate
+                                </button>
+                                <button type="button" id="reset-price" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="price-results" class="mt-8 p-6 bg-slate-50 rounded-lg hidden">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Recommended Price Range</h3>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-primary" id="price-range">--</div>
+                                <div class="text-sm text-gray-600 mt-2">Based on your specifications</div>
+                            </div>
+                            <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                <h4 class="font-semibold text-gray-900 mb-2">Price Breakdown</h4>
+                                <div class="text-sm text-gray-700">
+                                    <div class="flex justify-between">
+                                        <span>Base price per hour:</span>
+                                        <span id="base-price">--</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Quality multiplier:</span>
+                                        <span id="quality-multiplier">--</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Narrator multiplier:</span>
+                                        <span id="narrator-multiplier">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Time Per Day Calculator Page -->
+        <div id="time-per-day-page" class="page-content hidden">
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Audiobook Time Per Day Calculator</h1>
+                        <p class="text-lg text-gray-600">Plan your listening for perfect timing</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <form id="time-per-day-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Total Audiobook Time</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="tpd-hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="tpd-minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Days to Complete</label>
+                                <input type="number" id="tpd-days" placeholder="Enter number of days" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Playback Speed</label>
+                                <select id="tpd-speed" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="0.75">0.75x</option>
+                                    <option value="1.0" selected>1.0x</option>
+                                    <option value="1.25">1.25x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="1.75">1.75x</option>
+                                    <option value="2.0">2.0x</option>
+                                </select>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="button" id="calculate-tpd" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-2"></i>Calculate
+                                </button>
+                                <button type="button" id="reset-tpd" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="tpd-results" class="mt-8 p-6 bg-slate-50 rounded-lg hidden">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Daily Listening Schedule</h3>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-primary" id="daily-time">--</div>
+                                <div class="text-sm text-gray-600">Time needed per day</div>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <div class="text-lg font-semibold text-gray-700" id="actual-time">--</div>
+                                    <div class="text-xs text-gray-500">Actual listening time</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-lg font-semibold text-green-600" id="time-saved-daily">--</div>
+                                    <div class="text-xs text-gray-500">Time saved daily</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Time to Page Calculator Page -->
+        <div id="time-to-page-page" class="page-content hidden">
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Audiobook Time to Page Calculator</h1>
+                        <p class="text-lg text-gray-600">Convert audiobook time to page numbers</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <form id="time-to-page-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Total Book Pages</label>
+                                <input type="number" id="ttp-total-pages" placeholder="Enter total pages" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Total Audiobook Time</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="ttp-hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="ttp-minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Current Listening Time</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="ttp-current-hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="ttp-current-minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="button" id="calculate-ttp" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-2"></i>Calculate
+                                </button>
+                                <button type="button" id="reset-ttp" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="ttp-results" class="mt-8 p-6 bg-slate-50 rounded-lg hidden">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Page Conversion Results</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-primary" id="current-page">--</div>
+                                    <div class="text-sm text-gray-600">Current Page</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600" id="pages-per-hour">--</div>
+                                    <div class="text-sm text-gray-600">Pages per Hour</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Percentage Calculator Page -->
+        <div id="percentage-page" class="page-content hidden">
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Audiobook Percentage Calculator</h1>
+                        <p class="text-lg text-gray-600">Track your progress with ease</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <form id="percentage-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Total Audiobook Time</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="pc-total-hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="pc-total-minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Time Listened</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="pc-listened-hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="pc-listened-minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="button" id="calculate-pc" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-2"></i>Calculate
+                                </button>
+                                <button type="button" id="reset-pc" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="pc-results" class="mt-8 p-6 bg-slate-50 rounded-lg hidden">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Progress Results</h3>
+                            <div class="text-center mb-4">
+                                <div class="text-4xl font-bold text-primary" id="completion-percentage">--</div>
+                                <div class="text-sm text-gray-600">Completed</div>
+                            </div>
+                            
+                            <!-- Progress Bar -->
+                            <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+                                <div id="progress-bar" class="bg-primary h-4 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 text-center">
+                                <div>
+                                    <div class="text-lg font-semibold text-gray-700" id="remaining-time">--</div>
+                                    <div class="text-xs text-gray-500">Time Remaining</div>
+                                </div>
+                                <div>
+                                    <div class="text-lg font-semibold text-green-600" id="remaining-percentage">--</div>
+                                    <div class="text-xs text-gray-500">Remaining</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Length Calculator Page -->
+        <div id="length-page" class="page-content hidden">
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Audiobook Length Calculator</h1>
+                        <p class="text-lg text-gray-600">Estimate your listening time accurately</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <form id="length-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Word Count</label>
+                                <input type="number" id="lc-word-count" placeholder="Enter total word count" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Average Reading Speed (Words per minute)</label>
+                                <select id="lc-reading-speed" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="130">Slow (130 WPM)</option>
+                                    <option value="150" selected>Average (150 WPM)</option>
+                                    <option value="180">Fast (180 WPM)</option>
+                                    <option value="200">Very Fast (200 WPM)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Narrator Pace</label>
+                                <select id="lc-narrator-pace" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="0.9">Slow Narrator (90%)</option>
+                                    <option value="1.0" selected>Normal Narrator (100%)</option>
+                                    <option value="1.1">Fast Narrator (110%)</option>
+                                </select>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="button" id="calculate-lc" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-2"></i>Calculate
+                                </button>
+                                <button type="button" id="reset-lc" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="lc-results" class="mt-8 p-6 bg-slate-50 rounded-lg hidden">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Estimated Audiobook Length</h3>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-primary" id="estimated-length">--</div>
+                                <div class="text-sm text-gray-600">Total listening time</div>
+                            </div>
+                            <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                <h4 class="font-semibold text-gray-900 mb-2">Calculation Details</h4>
+                                <div class="text-sm text-gray-700 space-y-1">
+                                    <div class="flex justify-between">
+                                        <span>Words per minute:</span>
+                                        <span id="calc-wpm">--</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Base reading time:</span>
+                                        <span id="base-reading-time">--</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Narrator adjustment:</span>
+                                        <span id="narrator-adjustment">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Speed Calculator Page -->
+        <div id="speed-page" class="page-content hidden">
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Audiobook Speed Calculator</h1>
+                        <p class="text-lg text-gray-600">Optimize your playback speed and save time</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <form id="speed-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Audiobook Length</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="sc-hours" placeholder="Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="sc-minutes" placeholder="Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Target Completion Time</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="number" id="sc-target-hours" placeholder="Target Hours" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <input type="number" id="sc-target-minutes" placeholder="Target Minutes" min="0" max="59" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="button" id="calculate-sc" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-calculator mr-2"></i>Calculate
+                                </button>
+                                <button type="button" id="reset-sc" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="sc-results" class="mt-8 p-6 bg-slate-50 rounded-lg hidden">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Optimal Speed Results</h3>
+                            <div class="text-center mb-4">
+                                <div class="text-3xl font-bold text-primary" id="optimal-speed">--</div>
+                                <div class="text-sm text-gray-600">Recommended playback speed</div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <div class="text-lg font-semibold text-green-600" id="time-saved-total">--</div>
+                                    <div class="text-xs text-gray-500">Total time saved</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-lg font-semibold text-gray-700" id="actual-listening-time">--</div>
+                                    <div class="text-xs text-gray-500">Actual listening time</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speed Comparison Table -->
+                    <div class="mt-12 bg-white rounded-xl shadow-lg p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Speed Comparison Chart</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse">
+                                <thead>
+                                    <tr class="border-b">
+                                        <th class="text-left py-3 px-4 font-medium text-gray-700">Speed</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-700">8-Hour Book</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-700">12-Hour Book</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-700">Time Saved (8hr)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4 font-semibold">1.0x</td>
+                                        <td class="py-3 px-4">8h 00m</td>
+                                        <td class="py-3 px-4">12h 00m</td>
+                                        <td class="py-3 px-4">--</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4 font-semibold">1.25x</td>
+                                        <td class="py-3 px-4">6h 24m</td>
+                                        <td class="py-3 px-4">9h 36m</td>
+                                        <td class="py-3 px-4 text-green-600">1h 36m</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4 font-semibold">1.5x</td>
+                                        <td class="py-3 px-4">5h 20m</td>
+                                        <td class="py-3 px-4">8h 00m</td>
+                                        <td class="py-3 px-4 text-green-600">2h 40m</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4 font-semibold">1.75x</td>
+                                        <td class="py-3 px-4">4h 34m</td>
+                                        <td class="py-3 px-4">6h 51m</td>
+                                        <td class="py-3 px-4 text-green-600">3h 26m</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">2.0x</td>
+                                        <td class="py-3 px-4">4h 00m</td>
+                                        <td class="py-3 px-4">6h 00m</td>
+                                        <td class="py-3 px-4 text-green-600">4h 00m</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact-page" class="page-content hidden">
+            <section class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">We Want to Hear from You!</h1>
+                        <p class="text-lg text-gray-600">
+                            We're constantly working to improve our audiobook calculators and would love to hear your thoughts. 
+                            Whether you've found the calculators helpful, have suggestions for new tools, or ideas on how we can make 
+                            the current ones even better, we're all ears!
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-6">Share Your Feedback or Ideas</h2>
+                        
+                        <div class="mb-8 space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs font-medium mr-3 mt-0.5">
+                                    <i class="fas fa-heart text-xs"></i>
+                                </div>
+                                <p class="text-gray-700"><strong>Loved using our calculators?</strong> Let us know what worked best for you!</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs font-medium mr-3 mt-0.5">
+                                    <i class="fas fa-lightbulb text-xs"></i>
+                                </div>
+                                <p class="text-gray-700"><strong>Got ideas for a new calculator?</strong> We're always looking for new ways to enhance the audiobook experience—your suggestion could be our next big tool!</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs font-medium mr-3 mt-0.5">
+                                    <i class="fas fa-wrench text-xs"></i>
+                                </div>
+                                <p class="text-gray-700"><strong>Spotted something we can improve?</strong> Whether it's a feature you'd like to see or a way to make the calculators more user-friendly, we welcome all feedback.</p>
+                            </div>
+                        </div>
+
+                        <form id="contact-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Your Full Name</label>
+                                <input type="text" id="contact-name" placeholder="Enter your full name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input type="email" id="contact-email" placeholder="Enter your email address" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                                <input type="text" id="contact-subject" placeholder="Enter message subject" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                <textarea id="contact-message" rows="6" placeholder="Share your feedback, suggestions, or ideas..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required></textarea>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="submit" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-paper-plane mr-2"></i>Send Message
+                                </button>
+                                <button type="button" id="reset-contact" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                                    <i class="fas fa-redo mr-2"></i>Reset Form
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="contact-success" class="mt-8 p-6 bg-green-50 border border-green-200 rounded-lg hidden">
+                            <div class="text-center">
+                                <i class="fas fa-check-circle text-3xl text-green-600 mb-3"></i>
+                                <h3 class="text-lg font-semibold text-green-800 mb-2">Thank you for your message!</h3>
+                                <p class="text-green-700">We appreciate your feedback and will get back to you soon.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <p class="text-gray-600 mb-4">Feel free to reach out! We're committed to making these tools as useful as possible for audiobook lovers like you!</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Social Sharing Section (appears on all pages) -->
+    <section class="py-12 bg-white border-t">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Share these audiobook calculators and help others optimize their listening experience!</h3>
+            <div class="flex justify-center space-x-4">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://audiobookment.com/" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full transition-colors">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?text=Audiobook%20Calculators&url=https://audiobookment.com/" target="_blank" class="bg-black hover:bg-gray-800 text-white p-3 rounded-full transition-colors">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://wa.me/?text=Audiobook%20Calculators%20-%20https://audiobookment.com/" target="_blank" class="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full transition-colors">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://t.me/share/url?url=https://audiobookment.com/&text=Audiobook%20Calculators" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="http://reddit.com/submit?url=https://audiobookment.com/&title=Audiobook%20Calculators" target="_blank" class="bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-full transition-colors">
+                    <i class="fab fa-reddit-alien"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold">AudioBookment</h3>
+                    <p class="text-gray-400 text-sm">Optimize your audiobook experience</p>
+                </div>
+                <div class="flex flex-wrap justify-center md:justify-end space-x-6 text-sm">
+                    <a href="#home" onclick="showPage('home')" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="#finished-hour" onclick="showPage('finished-hour')" class="text-gray-300 hover:text-white transition-colors">Calculators</a>
+                    <a href="#contact" onclick="showPage('contact')" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center">
+                <p class="text-gray-400 text-sm">© 2025 AudioBookment · All rights reserved.</p>
+                <button onclick="scrollToTop()" class="mt-4 text-gray-400 hover:text-white transition-colors">
+                    <i class="fas fa-chevron-up"></i> Go up
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        // Global page management
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.add('hidden'));
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+            
+            // Update URL hash
+            window.location.hash = pageId;
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Initialize page on load
+        function initializePage() {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash + '-page')) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+        }
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Format time helper
+        function formatTime(hours, minutes) {
+            if (hours === 0) {
+                return `${minutes}m`;
+            } else if (minutes === 0) {
+                return `${hours}h`;
+            } else {
+                return `${hours}h ${minutes}m`;
+            }
+        }
+
+        // Main Calculator Logic
+        function initMainCalculator() {
+            const speedRange = document.getElementById('speed-range');
+            const speedDisplay = document.getElementById('speed-display');
+            const speedMinus = document.getElementById('speed-minus');
+            const speedPlus = document.getElementById('speed-plus');
+
+            speedRange.addEventListener('input', function() {
+                speedDisplay.textContent = parseFloat(this.value).toFixed(1) + 'x';
+            });
+
+            speedMinus.addEventListener('click', function() {
+                const currentValue = parseFloat(speedRange.value);
+                const newValue = Math.max(0.5, currentValue - 0.1);
+                speedRange.value = newValue.toFixed(1);
+                speedDisplay.textContent = newValue.toFixed(1) + 'x';
+            });
+
+            speedPlus.addEventListener('click', function() {
+                const currentValue = parseFloat(speedRange.value);
+                const newValue = Math.min(2.0, currentValue + 0.1);
+                speedRange.value = newValue.toFixed(1);
+                speedDisplay.textContent = newValue.toFixed(1) + 'x';
+            });
+
+            document.getElementById('calculate-main').addEventListener('click', function() {
+                const hours = parseInt(document.getElementById('hours').value) || 0;
+                const minutes = parseInt(document.getElementById('minutes').value) || 0;
+                const speed = parseFloat(speedRange.value);
+
+                if (hours === 0 && minutes === 0) {
+                    alert('Please enter audiobook length');
+                    return;
+                }
+
+                const totalMinutes = hours * 60 + minutes;
+                const listeningMinutes = Math.round(totalMinutes / speed);
+                const savedMinutes = totalMinutes - listeningMinutes;
+
+                const listeningHours = Math.floor(listeningMinutes / 60);
+                const listeningMins = listeningMinutes % 60;
+
+                const savedHours = Math.floor(savedMinutes / 60);
+                const savedMins = savedMinutes % 60;
+
+                document.getElementById('listening-time').textContent = formatTime(listeningHours, listeningMins);
+                document.getElementById('time-saved').textContent = speed > 1 ? formatTime(savedHours, savedMins) : '--';
+                document.getElementById('main-results').classList.remove('hidden');
+            });
+
+            document.getElementById('reset-main').addEventListener('click', function() {
+                document.getElementById('hours').value = '';
+                document.getElementById('minutes').value = '';
+                speedRange.value = '1.0';
+                speedDisplay.textContent = '1.0x';
+                document.getElementById('main-results').classList.add('hidden');
+            });
+        }
+
+        // Finished Hour Calculator
+        function initFinishedHourCalculator() {
+            document.getElementById('calculate-fh').addEventListener('click', function() {
+                const hours = parseInt(document.getElementById('fh-hours').value) || 0;
+                const minutes = parseInt(document.getElementById('fh-minutes').value) || 0;
+                const startTime = document.getElementById('start-time').value;
+                const speed = parseFloat(document.getElementById('fh-speed').value);
+
+                if ((hours === 0 && minutes === 0) || !startTime) {
+                    alert('Please enter audiobook length and start time');
+                    return;
+                }
+
+                const totalMinutes = hours * 60 + minutes;
+                const listeningMinutes = Math.round(totalMinutes / speed);
+
+                const [startHour, startMinute] = startTime.split(':').map(Number);
+                const startTotalMinutes = startHour * 60 + startMinute;
+                const finishTotalMinutes = startTotalMinutes + listeningMinutes;
+
+                const finishHour = Math.floor(finishTotalMinutes / 60) % 24;
+                const finishMinute = finishTotalMinutes % 60;
+
+                const finishTime = `${finishHour.toString().padStart(2, '0')}:${finishMinute.toString().padStart(2, '0')}`;
+
+                document.getElementById('finished-time').textContent = finishTime;
+                document.getElementById('fh-results').classList.remove('hidden');
+            });
+
+            document.getElementById('reset-fh').addEventListener('click', function() {
+                document.getElementById('fh-hours').value = '';
+                document.getElementById('fh-minutes').value = '';
+                document.getElementById('start-time').value = '';
+                document.getElementById('fh-speed').value = '1.0';
+                document.getElementById('fh-results').classList.add('hidden');
+            });
+        }
+
+        // Time Left Calculator
+        function initTimeLeftCalculator() {
+            document.getElementById('calculate-tl').addEventListener('click', function() {
+                const totalHours = parseInt(document.getElementById('tl-total-hours').value) || 0;
+                const totalMinutes = parseInt(document.getElementById('tl-total-minutes').value) || 0;
+                const listenedHours = parseInt(document.getElementById('tl-listened-hours').value) || 0;
+                const listenedMinutes = parseInt(document.getElementById('tl-listened-minutes').value) || 0;
+                const speed = parseFloat(document.getElementById('tl-speed').value);
+
+                if (totalHours === 0 && totalMinutes === 0) {
+                    alert('Please enter total audiobook time');
+                    return;
+                }
+
+                const totalTime = totalHours * 60 + totalMinutes;
+                const listenedTime = listenedHours * 60 + listenedMinutes;
+                const remainingTime = totalTime - listenedTime;
+
+                if (remainingTime <= 0) {
+                    document.getElementById('time-left-result').textContent = 'Complete!';
+                    document.getElementById('percentage-completed').textContent = '100%';
+                } else {
+                    const adjustedRemainingTime = Math.round(remainingTime / speed);
+                    const hours = Math.floor(adjustedRemainingTime / 60);
+                    const minutes = adjustedRemainingTime % 60;
+                    const percentage = Math.round((listenedTime / totalTime) * 100);
+
+                    document.getElementById('time-left-result').textContent = formatTime(hours, minutes);
+                    document.getElementById('percentage-completed').textContent = percentage + '%';
+                }
+
+                document.getElementById('tl-results').classList.remove('hidden');
+            });
+
+            document.getElementById('reset-tl').addEventListener('click', function() {
+                document.getElementById('tl-total-hours').value = '';
+                document.getElementById('tl-total-minutes').value = '';
+                document.getElementById('tl-listened-hours').value = '';
+                document.getElementById('tl-listened-minutes').value = '';
+                document.getElementById('tl-speed').value = '1.0';
+                document.getElementById('tl-results').classList.add('hidden');
+            });
+        }
+
+        // Price Calculator
+        function initPriceCalculator() {
+            document.getElementById('calculate-price').addEventListener('click', function() {
+                const length = parseFloat(document.getElementById('p-length').value) || 0;
+                const quality = document.getElementById('p-quality').value;
+                const narrator = document.getElementById('p-narrator').value;
+                const market = document.getElementById('p-market').value;
+
+                if (length <= 0) {
+                    alert('Please enter audiobook length');
+                    return;
+                }
+
+                let basePrice = 8; // Base price per hour
+
+                // Quality multipliers
+                const qualityMultipliers = {
+                    'basic': 0.7,
+                    'standard': 1.0,
+                    'premium': 1.4
+                };
+
+                // Narrator multipliers
+                const narratorMultipliers = {
+                    'new': 0.8,
+                    'experienced': 1.0,
+                    'celebrity': 1.8
+                };
+
+                // Market multipliers
+                const marketMultipliers = {
+                    'budget': 0.8,
+                    'mid': 1.0,
+                    'premium': 1.3
+                };
+
+                const qualityMult = qualityMultipliers[quality];
+                const narratorMult = narratorMultipliers[narrator];
+                const marketMult = marketMultipliers[market];
+
+                const finalPrice = basePrice * qualityMult * narratorMult * marketMult * length;
+                const lowPrice = Math.round(finalPrice * 0.9);
+                const highPrice = Math.round(finalPrice * 1.1);
+
+                document.getElementById('price-range').textContent = `$${lowPrice} - $${highPrice}`;
+                document.getElementById('base-price').textContent = `$${basePrice}`;
+                document.getElementById('quality-multiplier').textContent = `${qualityMult}x`;
+                document.getElementById('narrator-multiplier').textContent = `${narratorMult}x`;
+                document.getElementById('price-results').classList.remove('hidden');
+            });
+
+            document.getElementById('reset-price').addEventListener('click', function() {
+                document.getElementById('p-length').value = '';
+                document.getElementById('p-quality').value = 'standard';
+                document.getElementById('p-narrator').value = 'experienced';
+                document.getElementById('p-market').value = 'mid';
+                document.getElementById('price-results').classList.add('hidden');
+            });
+        }
+
+        // Time Per Day Calculator
+        function initTimePerDayCalculator() {
+            document.getElementById('calculate-tpd').addEventListener('click', function() {
+                const hours = parseInt(document.getElementById('tpd-hours').value) || 0;
+                const minutes = parseInt(document.getElementById('tpd-minutes').value) || 0;
+                const days = parseInt(document.getElementById('tpd-days').value) || 1;
+                const speed = parseFloat(document.getElementById('tpd-speed').value);
+
+                if (hours === 0 && minutes === 0) {
+                    alert('Please enter audiobook length');
+                    return;
+                }
+
+                if (days <= 0) {
+                    alert('Please enter valid number of days');
+                    return;
+                }
+
+                const totalMinutes = hours * 60 + minutes;
+                const actualListeningMinutes = totalMinutes / speed;
+                const dailyMinutes = actualListeningMinutes / days;
+                const dailySavedMinutes = (totalMinutes / days) - dailyMinutes;
+
+                const dailyHours = Math.floor(dailyMinutes / 60);
+                const dailyMins = Math.round(dailyMinutes % 60);
+
+                const savedHours = Math.floor(dailySavedMinutes / 60);
+                const savedMins = Math.round(dailySavedMinutes % 60);
+
+                document.getElementById('daily-time').textContent = formatTime(dailyHours, dailyMins);
+                document.getElementById('actual-time').textContent = formatTime(dailyHours, dailyMins);
+                document.getElementById('time-saved-daily').textContent = speed > 1 ? formatTime(savedHours, savedMins) : '--';
+                document.getElementById('tpd-results').classList.remove('hidden');
+            });
+
+            document.getElementById('reset-tpd').addEventListener('click', function() {
+                document.getElementById('tpd-hours').value = '';
+                document.getElementById('tpd-minutes').value = '';
+                document.getElementById('tpd-days').value = '';
+                document.getElementById('tpd-speed').value = '1.0';
+                document.getElementById('tpd-results').classList.add('hidden');
+            });
+        }
+
+        // Time to Page Calculator
+        function initTimeToPageCalculator() {
+            document.getElementById('calculate-ttp').addEventListener('click', function() {
+                const totalPages = parseInt(document.getElementById('ttp-total-pages').value) || 0;
+                const hours = parseInt(document.getElementById('ttp-hours').value) || 0;
+                const minutes = parseInt(document.getElementById('ttp-minutes').value) || 0;
+                const currentHours = parseInt(document.getElementById('ttp-current-hours').value) || 0;
+                const currentMinutes = parseInt(document.getElementById('ttp-current-minutes').value) || 0;
+
+                if (totalPages <= 0 || (hours === 0 && minutes === 0)) {
+                    alert('Please enter total pages and audiobook length');
+                    return;
+                }
+
+                const totalTime = hours * 60 + minutes;
+                const currentTime = currentHours * 60 + currentMinutes;
+                
+                const pagesPerMinute = totalPages / totalTime;
+                const currentPage = Math.round(currentTime * pagesPerMinute);
+                const pagesPerHour = Math.round(pagesPerMinute * 60);
+
+                document.getElementById('current-page').textContent = Math.min(currentPage, totalPages);
+                document.getElementById('pages-per-hour').textContent = pagesPerHour;
+                document.getElementById('ttp-results').classList.remove('hidden');
+            });
+
+            document.getElementById('reset-ttp').addEventListener('click', function() {
+                document.getElementById('ttp-total-pages').value = '';
+                document.getElementById('ttp-hours').value = '';
+                document.getElementById('ttp-minutes').value = '';
+                document.getElementById('ttp-current-hours').value = '';
+                document.getElementById('ttp-current-minutes').value = '';
+                document.getElementById('ttp-results').classList.add('hidden');
+            });
+        }
+
+        // Percentage Calculator
+        function initPercentageCalculator() {
+            document.getElementById('calculate-pc').addEventListener('click', function() {
+                const totalHours = parseInt(document.getElementById('pc-total-hours').value) || 0;
+                const totalMinutes = parseInt(document.getElementById('pc-total-minutes').value) || 0;
+                const listenedHours = parseInt(document.getElementById('pc-listened-hours').value) || 0;
+                const listenedMinutes = parseInt(document.getElementById('pc-listened-minutes').value) || 0;
+
+                if (totalHours === 0 && totalMinutes === 0) {
+                    alert('Please enter total audiobook time');
+                    return;
+                }
+
+                const totalTime = totalHours * 60 + totalMinutes;
+                const listenedTime = listenedHours * 60 + listenedMinutes;
+                
+                const percentage = Math.round((listenedTime / totalTime) * 100);
+                const remainingPercentage = 100 - percentage;
+                const remainingTime = totalTime - listenedTime;
+                const remainingHours = Math.floor(remainingTime / 60);
+                const remainingMins = remainingTime % 60;
+
+                document.getElementById('completion-percentage').textContent = percentage + '%';
+                document.getElementById('progress-bar').style.width = percentage + '%';
+                document.getElementById('remaining-time').textContent = formatTime(remainingHours, remainingMins);
+                document.getElementById('remaining-percentage').textContent = remainingPercentage + '%';
+                document.getElementById('pc-results').classList.remove('hidden');
+            });
+
+            document.getElementById('reset-pc').addEventListener('click', function() {
+                document.getElementById('pc-total-hours').value = '';
+                document.getElementById('pc-total-minutes').value = '';
+                document.getElementById('pc-listened-hours').value = '';
+                document.getElementById('pc-listened-minutes').value = '';
+                document.getElementById('pc-results').classList.add('hidden');
+            });
+        }
+
+        // Length Calculator
+        function initLengthCalculator() {
+            document.getElementById('calculate-lc').addEventListener('click', function() {
+                const wordCount = parseInt(document.getElementById('lc-word-count').value) || 0;
+                const readingSpeed = parseInt(document.getElementById('lc-reading-speed').value);
+                const narratorPace = parseFloat(document.getElementById('lc-narrator-pace').value);
+
+                if (wordCount <= 0) {
+                    alert('Please enter word count');
+                    return;
+                }
+
+                const baseMinutes = wordCount / readingSpeed;
+                const adjustedMinutes = Math.round(baseMinutes * narratorPace);
+                const hours = Math.floor(adjustedMinutes / 60);
+                const minutes = adjustedMinutes % 60;
+
+                document.getElementById('estimated-length').textContent = formatTime(hours, minutes);
+                document.getElementById('calc-wpm').textContent = readingSpeed + ' WPM';
+                document.getElementById('base-reading-time').textContent = formatTime(Math.floor(baseMinutes / 60), Math.round(baseMinutes % 60));
+                document.getElementById('narrator-adjustment').textContent = (narratorPace * 100).toFixed(0) + '%';
+                document.getElementById('lc-results').classList.remove('hidden');
+            });
+
+            document.getElementById('reset-lc').addEventListener('click', function() {
+                document.getElementById('lc-word-count').value = '';
+                document.getElementById('lc-reading-speed').value = '150';
+                document.getElementById('lc-narrator-pace').value = '1.0';
+                document.getElementById('lc-results').classList.add('hidden');
+            });
+        }
+
+        // Speed Calculator
+        function initSpeedCalculator() {
+            document.getElementById('calculate-sc').addEventListener('click', function() {
+                const hours = parseInt(document.getElementById('sc-hours').value) || 0;
+                const minutes = parseInt(document.getElementById('sc-minutes').value) || 0;
+                const targetHours = parseInt(document.getElementById('sc-target-hours').value) || 0;
+                const targetMinutes = parseInt(document.getElementById('sc-target-minutes').value) || 0;
+
+                if ((hours === 0 && minutes === 0) || (targetHours === 0 && targetMinutes === 0)) {
+                    alert('Please enter both audiobook length and target time');
+                    return;
+                }
+
+                const totalTime = hours * 60 + minutes;
+                const targetTime = targetHours * 60 + targetMinutes;
+
+                if (targetTime >= totalTime) {
+                    alert('Target time should be less than audiobook length');
+                    return;
+                }
+
+                const requiredSpeed = totalTime / targetTime;
+                const timeSaved = totalTime - targetTime;
+                const savedHours = Math.floor(timeSaved / 60);
+                const savedMins = timeSaved % 60;
+
+                document.getElementById('optimal-speed').textContent = requiredSpeed.toFixed(2) + 'x';
+                document.getElementById('time-saved-total').textContent = formatTime(savedHours, savedMins);
+                document.getElementById('actual-listening-time').textContent = formatTime(targetHours, targetMinutes);
+                document.getElementById('sc-results').classList.remove('hidden');
+            });
+
+            document.getElementById('reset-sc').addEventListener('click', function() {
+                document.getElementById('sc-hours').value = '';
+                document.getElementById('sc-minutes').value = '';
+                document.getElementById('sc-target-hours').value = '';
+                document.getElementById('sc-target-minutes').value = '';
+                document.getElementById('sc-results').classList.add('hidden');
+            });
+        }
+
+        // Contact Form
+        function initContactForm() {
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // TODO: Implement actual form submission to backend
+                
+                // Show success message
+                document.getElementById('contact-success').classList.remove('hidden');
+                
+                // Reset form
+                this.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(function() {
+                    document.getElementById('contact-success').classList.add('hidden');
+                }, 5000);
+            });
+
+            document.getElementById('reset-contact').addEventListener('click', function() {
+                document.getElementById('contact-form').reset();
+                document.getElementById('contact-success').classList.add('hidden');
+            });
+        }
+
+        // Global functions
+        window.showPage = showPage;
+        window.scrollToTop = scrollToTop;
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+            initMainCalculator();
+            initFinishedHourCalculator();
+            initTimeLeftCalculator();
+            initPriceCalculator();
+            initTimePerDayCalculator();
+            initTimeToPageCalculator();
+            initPercentageCalculator();
+            initLengthCalculator();
+            initSpeedCalculator();
+            initContactForm();
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash + '-page')) {
+                showPage(hash);
+            }
+        });
+
+    })();
+    </script>
+</body>
+</html>
