@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Calculator, RotateCcw } from "lucide-react";
 import { Link } from "wouter";
 import { formatTime, timeToMinutes } from "@/lib/calculator-utils";
+import PageSocialSharing from "@/components/page-social-sharing";
 
 export default function TimeLeftCalculator() {
   const [totalHours, setTotalHours] = useState("");
@@ -261,6 +262,15 @@ export default function TimeLeftCalculator() {
               </div>
             </Link>
           </div>
+        </div>
+
+        {/* Social Sharing */}
+        <div className="mt-12">
+          <PageSocialSharing 
+            title="Audiobook Time Left Calculator"
+            description="Know exactly how much listening time remains with accurate progress tracking"
+            pageType="calculator"
+          />
         </div>
       </div>
     </div>

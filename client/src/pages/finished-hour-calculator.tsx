@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Calculator, RotateCcw } from "lucide-react";
 import { Link } from "wouter";
 import { addMinutesToTime, timeToMinutes } from "@/lib/calculator-utils";
+import PageSocialSharing from "@/components/page-social-sharing";
 
 export default function FinishedHourCalculator() {
   const [hours, setHours] = useState("");
@@ -199,6 +200,15 @@ export default function FinishedHourCalculator() {
               </div>
             </Link>
           </div>
+        </div>
+
+        {/* Social Sharing */}
+        <div className="mt-12">
+          <PageSocialSharing 
+            title="Audiobook Finished Hour Calculator"
+            description="Find out exactly when you'll finish your audiobook with different playback speeds"
+            pageType="calculator"
+          />
         </div>
       </div>
     </div>

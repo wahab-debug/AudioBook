@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Send, RotateCcw, CheckCircle, Heart, Lightbulb, Wrench } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import PageSocialSharing from "@/components/page-social-sharing";
 
 interface ContactFormData {
   name: string;
@@ -205,9 +206,18 @@ export default function Contact() {
         </Card>
 
         <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 mb-8">
             Feel free to reach out! We're committed to making these tools as useful as possible for audiobook lovers like you!
           </p>
+        </div>
+
+        {/* Social Sharing */}
+        <div className="mt-12">
+          <PageSocialSharing 
+            title="Contact AudioBookment"
+            description="Get in touch with us for feedback, suggestions, or support for our audiobook calculators"
+            pageType="contact page"
+          />
         </div>
       </div>
     </div>

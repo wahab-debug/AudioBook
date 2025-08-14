@@ -1,50 +1,66 @@
 import { useState } from "react";
-import { Facebook, Twitter, MessageCircle, Send, Share2, Copy, Check } from "lucide-react";
+import { Facebook, Twitter, MessageCircle, Send, Share2, Copy, Check, Link2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
-export default function SocialSharing() {
+interface PageSocialSharingProps {
+  title: string;
+  description: string;
+  pageType?: string;
+}
+
+export default function PageSocialSharing({ 
+  title, 
+  description, 
+  pageType = "calculator" 
+}: PageSocialSharingProps) {
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
   
   const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://audiobookment.com/';
-  const title = "Audiobook Calculators";
-  const description = "Optimize your audiobook listening experience with precision";
+  const fullTitle = `${title} | AudioBookment`;
+  const shareText = `${fullTitle} - ${description}`;
   
   const shareLinks = [
     {
       name: "Facebook",
-      url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,
+      url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&quote=${encodeURIComponent(shareText)}`,
       icon: Facebook,
       bgColor: "bg-blue-600 hover:bg-blue-700",
+      textColor: "text-blue-600",
       testId: "share-facebook"
     },
     {
       name: "X (Twitter)",
-      url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${title} - ${description}`)}&url=${encodeURIComponent(currentUrl)}`,
+      url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(currentUrl)}&hashtags=audiobook,calculator,productivity`,
       icon: Twitter,
       bgColor: "bg-black hover:bg-gray-800",
+      textColor: "text-gray-800",
       testId: "share-twitter"
     },
     {
       name: "WhatsApp",
-      url: `https://wa.me/?text=${encodeURIComponent(`${title} - ${description}\n${currentUrl}`)}`,
+      url: `https://wa.me/?text=${encodeURIComponent(`${shareText}\n\n${currentUrl}`)}`,
       icon: MessageCircle,
       bgColor: "bg-green-600 hover:bg-green-700",
+      textColor: "text-green-600",
       testId: "share-whatsapp"
     },
     {
       name: "Telegram",
-      url: `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(`${title} - ${description}`)}`,
+      url: `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(shareText)}`,
       icon: Send,
       bgColor: "bg-blue-500 hover:bg-blue-600",
+      textColor: "text-blue-500",
       testId: "share-telegram"
     },
     {
       name: "Reddit",
-      url: `http://reddit.com/submit?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(title)}`,
+      url: `http://reddit.com/submit?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(fullTitle)}`,
       icon: Share2,
       bgColor: "bg-orange-600 hover:bg-orange-700",
+      textColor: "text-orange-600",
       testId: "share-reddit"
     }
   ];
@@ -57,7 +73,7 @@ export default function SocialSharing() {
         title: "Link copied!",
         description: "The URL has been copied to your clipboard.",
       });
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 3000);
     } catch (error) {
       toast({
         title: "Copy failed",
@@ -68,27 +84,40 @@ export default function SocialSharing() {
   };
 
   const handleNativeShare = async () => {
-    if (navigator.share) {
+    if (typeof window !== 'undefined' && 'share' in navigator) {
       try {
         await navigator.share({
-          title: title,
+          title: fullTitle,
           text: description,
           url: currentUrl,
         });
+        toast({
+          title: "Shared successfully!",
+          description: "Thank you for sharing this calculator.",
+        });
       } catch (error) {
-        // User cancelled the share dialog
+        // User cancelled the share dialog or sharing failed
       }
     }
   };
 
   return (
-    <section className="py-12 bg-white border-t">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h3 className="text-xl font-semibold text-gray-900 mb-4">
-          Share these audiobook calculators and help others optimize their listening experience!
+    <Card className="p-6 bg-gradient-to-br from-slate-50 to-white border border-slate-200">
+      <div className="text-center mb-6">
+        <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4">
+          <Share2 className="h-6 w-6 text-primary" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          Share This {pageType.charAt(0).toUpperCase() + pageType.slice(1)}
         </h3>
-        
-        <div className="flex flex-wrap justify-center items-center gap-4 mb-6">
+        <p className="text-gray-600">
+          Help others discover this useful audiobook tool!
+        </p>
+      </div>
+      
+      <div className="space-y-4">
+        {/* Social Media Icons */}
+        <div className="flex flex-wrap justify-center gap-3">
           {shareLinks.map((link) => {
             const IconComponent = link.icon;
             return (
@@ -97,7 +126,7 @@ export default function SocialSharing() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${link.bgColor} text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg hover:shadow-xl`}
+                className={`${link.bgColor} text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-md hover:shadow-lg group`}
                 title={`Share on ${link.name}`}
                 data-testid={link.testId}
               >
@@ -107,6 +136,7 @@ export default function SocialSharing() {
           })}
         </div>
 
+        {/* Copy Link and Native Share */}
         <div className="flex flex-wrap justify-center gap-3">
           <Button
             onClick={copyToClipboard}
@@ -142,10 +172,18 @@ export default function SocialSharing() {
           )}
         </div>
 
-        <div className="mt-6 text-sm text-gray-500">
-          <p>Help others discover these useful audiobook tools!</p>
+        {/* URL Display */}
+        <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+          <Link2 className="h-4 w-4 text-gray-500 flex-shrink-0" />
+          <code className="text-sm text-gray-700 truncate flex-1 font-mono">
+            {currentUrl}
+          </code>
         </div>
       </div>
-    </section>
+
+      <div className="mt-4 text-xs text-gray-500 text-center">
+        <p>Share this calculator to help others optimize their audiobook experience</p>
+      </div>
+    </Card>
   );
 }
